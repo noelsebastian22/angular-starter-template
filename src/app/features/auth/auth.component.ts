@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as AuthActions from './store';
@@ -48,7 +48,9 @@ export class AuthComponent {
   user$: Observable<{ id: string; name: string } | null>;
   error$: Observable<string | null>;
 
-  constructor(private store: Store<AuthState>) {
+  private readonly store = inject(Store<AuthState>);
+
+  constructor() {
     this.loading$ = this.store.select(AuthSelectors.selectLoading);
     this.user$ = this.store.select(AuthSelectors.selectUser);
     this.error$ = this.store.select(AuthSelectors.selectError);
