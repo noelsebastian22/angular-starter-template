@@ -15,9 +15,9 @@ export class AuthEffects {
       switchMap(({ username, password }) =>
         this.authService.login(username, password).pipe(
           map((user) => AuthActions.loginSuccess({ user })),
-          catchError((error) => of(AuthActions.loginFailure({ error })))
-        )
-      )
-    )
+          catchError((error) => of(AuthActions.loginFailure({ error }))),
+        ),
+      ),
+    ),
   );
 }

@@ -31,11 +31,13 @@ import { AsyncPipe } from '@angular/common';
         <button type="submit" [disabled]="loading$ | async">Login</button>
       </form>
       @if (loading$ | async) {
-      <div>Loading...</div>
-      } @if(user$ | async; as user){
-      <div>Welcome, {{ user.name }}!</div>
-      } @if (error$ | async; as error) {
-      <div style="color: red;">{{ error }}</div>
+        <div>Loading...</div>
+      }
+      @if (user$ | async; as user) {
+        <div>Welcome, {{ user.name }}!</div>
+      }
+      @if (error$ | async; as error) {
+        <div style="color: red;">{{ error }}</div>
       }
     </div>
   `,
@@ -61,7 +63,7 @@ export class AuthComponent {
       return;
     }
     this.store.dispatch(
-      AuthActions.login({ username: this.username, password: this.password })
+      AuthActions.login({ username: this.username, password: this.password }),
     );
   }
 }

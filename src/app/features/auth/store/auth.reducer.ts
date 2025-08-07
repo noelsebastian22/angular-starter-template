@@ -26,5 +26,5 @@ export const authReducer = createReducer(
     error: extractErrorMessage(error),
   })),
 
-  on(AuthActions.logout, () => initialAuthState)
+  on(AuthActions.logout, () => initialAuthState),
 );
