@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { provideRouter } from '@angular/router';
 
-describe('App', () => {
+describe('App Component', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [App], // App is a standalone component
+      providers: [provideRouter([])], // Empty routes or mock as needed
     }).compileComponents();
   });
 
@@ -14,12 +16,9 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', () => {
+  it(`should have the title 'angular-starter-template'`, () => {
     const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, angular-starter-template',
-    );
+    const app = fixture.componentInstance;
+    expect(app['title']).toEqual('angular-starter-template');
   });
 });
