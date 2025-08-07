@@ -5,15 +5,15 @@ export const selectAuthState = createFeatureSelector<AuthState>('auth');
 
 export const selectUser = createSelector(
   selectAuthState,
-  (state) => state.user
+  (state) => state.user,
 );
 
 export const selectLoading = createSelector(
   selectAuthState,
-  (state) => state.loading
+  (state) => state.loading,
 );
 
 export const selectError = createSelector(
   selectAuthState,
-  (state) => state.error
+  (state) => state.error,
 );

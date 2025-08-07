@@ -15,7 +15,7 @@ export class AuthService {
           return user;
         }
         throw new Error('Invalid credentials');
-      })
+      }),
     );
   }
 }
