@@ -13,13 +13,16 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { reducers } from './store';
 import { metaReducers } from './store';
 import { AuthEffects } from './features/auth/store';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from '@core/http/interceptors/error.interceptor';
+import { loadingInterceptor } from '@core/http/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
+    provideHttpClient(withInterceptors([loadingInterceptor, errorInterceptor])),
     provideRouter(routes),
     provideStore(reducers, { metaReducers }),
     provideEffects([AuthEffects]),
