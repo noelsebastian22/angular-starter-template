@@ -40,7 +40,7 @@ export class TmdbService extends ResourceService {
   searchMovies(query: string, page = 1) {
     return this.request<ApiResult<MovieResult>>(
       'GET',
-      this.url('search', 'movie'),
+      this.url('searchs', 'movie'),
       {
         params: { query, page, include_adult: false },
       },
