@@ -6,6 +6,8 @@ import * as AuthSelectors from './store';
 import { AuthState } from './store';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
+import { TmdbService } from 'app/core/services/tmdb.service';
+import { MovieResult } from '@infrastructure/models/tmdb.model';
 
 @Component({
   selector: 'app-auth',
@@ -40,6 +42,18 @@ import { AsyncPipe } from '@angular/common';
         <div style="color: red;">{{ error }}</div>
       }
     </div>
+
+    <button type="button" (click)="searchExample()">
+      Search TMDB (Inception)
+    </button>
+
+    @if (movies?.length) {
+      <ul>
+        @for (m of movies; track m.id) {
+          <li>{{ m.title }} — {{ m.release_date }}</li>
+        }
+      </ul>
+    }
   `,
 })
 export class AuthComponent {
@@ -49,6 +63,9 @@ export class AuthComponent {
   loading$: Observable<boolean>;
   user$: Observable<{ id: string; name: string } | null>;
   error$: Observable<string | null>;
+
+  private readonly tmdb = inject(TmdbService);
+  movies?: MovieResult[];
 
   private readonly store = inject(Store<AuthState>);
 
@@ -65,5 +82,12 @@ export class AuthComponent {
     this.store.dispatch(
       AuthActions.login({ username: this.username, password: this.password }),
     );
+  }
+
+  searchExample() {
+    this.tmdb.searchMovies('inception', 1).subscribe({
+      next: (res) => (this.movies = res.results),
+      error: (err) => console.error('TMDB error', err),
+    });
   }
 }
