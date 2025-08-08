@@ -7,7 +7,8 @@
     "types": [],
     "baseUrl": "./src",
     "paths": {
-      "@environments/*": ["environments/*"]
+      "@environments/*": ["environments/*"],
+      "@infrastructure/*": ["./app/infrastructure/*"]
     }
   },
   "include": ["src/**/*.ts"],
