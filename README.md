@@ -30,6 +30,7 @@ src/
 ├── app/
 │   ├── core/               # Core services & utilities
 │   ├── features/           # Feature modules (e.g., auth)
+│   ├── infrastructure/     # Infrastructure layer (HTTP, external services)
 │   ├── shared/             # Shared reusable components & directives
 │   ├── store/              # Global state (if any)
 │   └── styles/             # Global SCSS (reset, variables, etc.)
@@ -80,6 +81,15 @@ Enforces [Conventional Commits](https://www.conventionalcommits.org/):
 - Replaces Karma with Jest
 - Simple and fast test runner
 - Pre-configured for new apps and scalable tests
+
+### ✅ Infrastructure Layer
+
+Clean separation of infrastructure concerns:
+
+- `infrastructure/http/` - HTTP client abstractions and utilities
+- Resource abstract class for standardized API interactions
+- Type-safe HTTP service base class with CRUD operations
+- Built-in error handling and query parameter support
 
 ---
 
