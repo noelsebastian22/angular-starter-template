@@ -1,5 +1,5 @@
 /* Global SCSS Imports */
-@import "variables";
-@import "mixins";
-@import "reset";
-@import "typography";
+@use "variables";
+@use "mixins";
+@use "reset";
+@use "typography";
