@@ -1,64 +1,47 @@
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as AuthActions from './store';
 import * as AuthSelectors from './store';
 import { AuthState } from './store';
-import { FormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatListModule } from '@angular/material/list';
+
 import { TmdbService } from 'app/core/services/tmdb.service';
+
 import { MovieResult } from '@infrastructure/models/tmdb.model';
 
 @Component({
   selector: 'app-auth',
-  imports: [FormsModule, AsyncPipe],
-  template: `
-    <div>
-      <h2>Login</h2>
-      <form (submit)="login()">
-        <input
-          type="text"
-          placeholder="Username"
-          [(ngModel)]="username"
-          name="username"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          [(ngModel)]="password"
-          name="password"
-          required
-        />
-        <button type="submit" [disabled]="loading$ | async">Login</button>
-      </form>
-      @if (loading$ | async) {
-        <div>Loading...</div>
-      }
-      @if (user$ | async; as user) {
-        <div>Welcome, {{ user.name }}!</div>
-      }
-      @if (error$ | async; as error) {
-        <div style="color: red;">{{ error }}</div>
-      }
-    </div>
-
-    <button type="button" (click)="searchExample()">
-      Search TMDB (Inception)
-    </button>
-
-    @if (movies?.length) {
-      <ul>
-        @for (m of movies; track m.id) {
-          <li>{{ m.title }} — {{ m.release_date }}</li>
-        }
-      </ul>
-    }
-  `,
+  imports: [
+    FormsModule,
+    AsyncPipe,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatListModule,
+  ],
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
   username = '';
   password = '';
+  hide = true;
 
   loading$: Observable<boolean>;
   user$: Observable<{ id: string; name: string } | null>;
