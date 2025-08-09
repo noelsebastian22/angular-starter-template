@@ -1,0 +1,111 @@
+<mat-card class="auth-card">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="auth-form">
+      <!-- Username -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          required
+          #usernameCtrl="ngModel"
+          autocomplete="username"
+        />
+        <mat-icon matSuffix>person</mat-icon>
+        @if (usernameCtrl.invalid && usernameCtrl.touched) {
+          <mat-error>Username is required</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="password"
+          name="password"
+          required
+          #passwordCtrl="ngModel"
+          autocomplete="current-password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="hide ? 'Show password' : 'Hide password'"
+          [attr.aria-pressed]="!hide"
+        >
+          <mat-icon>{{ hide ? "visibility" : "visibility_off" }}</mat-icon>
+        </button>
+        @if (passwordCtrl.invalid && passwordCtrl.touched) {
+          <mat-error>Password is required</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="actions">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="(loading$ | async) || loginForm.invalid"
+        >
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+          @if (loading$ | async) {
+            <mat-progress-spinner
+              mode="indeterminate"
+              diameter="16"
+            ></mat-progress-spinner>
+          }
+        </button>
+      </div>
+    </form>
+    @if (loading$ | async) {
+      <div class="status">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+    }
+    @if (user$ | async; as user) {
+      <div class="welcome">
+        <mat-icon color="primary">check_circle</mat-icon>
+        <span>Welcome, {{ user.name }}!</span>
+      </div>
+    }
+    @if (error$ | async; as error) {
+      <mat-hint class="error-hint">
+        <mat-icon color="warn" class="mr-4">error</mat-icon>
+        <span>{{ error }}</span>
+      </mat-hint>
+    }
+  </mat-card-content>
+  @if (user$ | async; as user) {
+    <mat-card-actions>
+      <button mat-stroked-button type="button" (click)="searchExample()">
+        <mat-icon>search</mat-icon>
+        Search TMDB (Inception)
+      </button>
+    </mat-card-actions>
+  }
+</mat-card>
+
+@if (movies?.length) {
+  <mat-card class="movies-card">
+    <mat-card-title>Results</mat-card-title>
+    <mat-list>
+      @for (m of movies; track m.id) {
+        <mat-list-item>
+          <mat-icon matListItemIcon>movie</mat-icon>
+          <div matListItemTitle>{{ m.title }}</div>
+          <div matListItemLine>{{ m.release_date }}</div>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-card>
+}
