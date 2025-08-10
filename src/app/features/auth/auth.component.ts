@@ -20,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { TmdbService } from 'app/core/services/tmdb.service';
 
 import { MovieResult } from '@infrastructure/models/tmdb.model';
+import { TextInputComponent } from 'app/shared/ui/form-controls/text-input/text-input.component';
 
 @Component({
   selector: 'app-auth',
@@ -34,6 +35,7 @@ import { MovieResult } from '@infrastructure/models/tmdb.model';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatListModule,
+    TextInputComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],

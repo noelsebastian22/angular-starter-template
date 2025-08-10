@@ -1,53 +1,25 @@
 <mat-card class="auth-card">
-  <mat-card-header>
+  <mat-card-header class="auth-card-header">
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form (ngSubmit)="login()" #loginForm="ngForm" class="auth-form">
       <!-- Username -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="username"
-          name="username"
-          required
-          #usernameCtrl="ngModel"
-          autocomplete="username"
-        />
-        <mat-icon matSuffix>person</mat-icon>
-        @if (usernameCtrl.invalid && usernameCtrl.touched) {
-          <mat-error>Username is required</mat-error>
-        }
-      </mat-form-field>
+      <app-text-input
+        [label]="'Username'"
+        [required]="true"
+        name="username"
+        [(ngModel)]="username"
+      ></app-text-input>
 
       <!-- Password -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          [type]="hide ? 'password' : 'text'"
-          [(ngModel)]="password"
-          name="password"
-          required
-          #passwordCtrl="ngModel"
-          autocomplete="current-password"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          type="button"
-          (click)="hide = !hide"
-          [attr.aria-label]="hide ? 'Show password' : 'Hide password'"
-          [attr.aria-pressed]="!hide"
-        >
-          <mat-icon>{{ hide ? "visibility" : "visibility_off" }}</mat-icon>
-        </button>
-        @if (passwordCtrl.invalid && passwordCtrl.touched) {
-          <mat-error>Password is required</mat-error>
-        }
-      </mat-form-field>
+      <app-text-input
+        [label]="'Password'"
+        [required]="true"
+        name="password"
+        type="password"
+        [(ngModel)]="password"
+      ></app-text-input>
 
       <div class="actions">
         <button

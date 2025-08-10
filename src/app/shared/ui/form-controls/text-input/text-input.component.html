@@ -1,0 +1,56 @@
+<mat-form-field [appearance]="appearance" style="width: 100%">
+  @if (label) {
+    <mat-label>{{ label }}</mat-label>
+  }
+
+  <input
+    matInput
+    [id]="id"
+    [type]="effectiveType"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [required]="required"
+    [attr.minlength]="minlength ?? null"
+    [attr.maxlength]="maxlength ?? null"
+    [attr.pattern]="patternAsString"
+    [autocomplete]="autocompleteAttr"
+    [readonly]="readonly"
+    [spellcheck]="isPasswordType ? false : null"
+    [value]="_value ?? ''"
+    (input)="onNativeInput($event)"
+    (blur)="onBlur()"
+    (keydown)="onKeydown($event)"
+  />
+
+  <!-- Password visibility toggle -->
+  @if (isPasswordType && passwordToggle) {
+    <button
+      mat-icon-button
+      type="button"
+      matPrefix
+      [attr.aria-label]="
+        showPassword ? hidePasswordAriaLabel : showPasswordAriaLabel
+      "
+      (click)="toggleVisibility()"
+    >
+      <mat-icon>{{ showPassword ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  }
+
+  <!-- Hints -->
+  @if (hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
+  @if (isPasswordType && capsLockOn) {
+    <mat-hint align="end">Caps Lock is on</mat-hint>
+  }
+
+  <!-- Errors -->
+  @if (showErrors) {
+    <mat-error>
+      @for (e of errors; track e) {
+        <ng-container>{{ e }}<br /></ng-container>
+      }
+    </mat-error>
+  }
+</mat-form-field>
