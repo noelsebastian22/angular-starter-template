@@ -21,7 +21,13 @@ const config: Config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.d.ts',
+    '!src/main.ts',
+    '!src/test-helpers/**/*.ts',
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -43,7 +49,14 @@ const config: Config = {
   // ],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: undefined,
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
 
   // A path to a custom dependency extractor
   // dependencyExtractor: undefined,
@@ -91,7 +104,17 @@ const config: Config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@test-helpers/(.*)$': '<rootDir>/src/test-helpers/$1',
+    '^@test-helpers$': '<rootDir>/src/test-helpers/index',
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
+    '^@environments/(.*)$': '<rootDir>/src/environments/$1',
+    '^@infrastructure/(.*)$': '<rootDir>/src/app/infrastructure/$1',
+    '^@core/(.*)$': '<rootDir>/src/app/core/$1',
+    '^@features/(.*)$': '<rootDir>/src/app/features/$1',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],

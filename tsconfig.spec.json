@@ -4,8 +4,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": ["jest"]
+    "types": ["jest"],
+    "baseUrl": "./src",
+    "paths": {
+      "@environments/*": ["environments/*"],
+      "@infrastructure/*": ["app/infrastructure/*"],
+      "@core/*": ["app/core/*"],
+      "@features/*": ["app/features/*"],
+      "@test-helpers/*": ["test-helpers/*"],
+      "@test-helpers": ["test-helpers/index"]
+    }
   },
   "files": ["setup-jest.ts"],
-  "include": ["src/**/*.spec.ts"]
+  "include": ["src/**/*.spec.ts", "src/test-helpers/**/*.ts"]
 }
