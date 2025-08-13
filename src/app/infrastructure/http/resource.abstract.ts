@@ -101,7 +101,10 @@ export abstract class ResourceService<TModel = unknown> {
   /** Build `${baseUrl}/${resourcePath}/...segments` safely */
   protected url(...segments: (string | number)[]): string {
     const parts = [this.baseUrl, this.resourcePath, ...segments]
-      .filter(Boolean)
+      .filter(
+        (segment) =>
+          segment !== null && segment !== undefined && segment !== '',
+      )
       .map((s) => String(s).replace(/^\/+|\/+$/g, ''));
     return parts.join('/');
   }
