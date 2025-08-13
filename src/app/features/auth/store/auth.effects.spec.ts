@@ -137,7 +137,7 @@ describe('AuthEffects', () => {
 
     it('should handle undefined error objects', (done) => {
       const username = 'testuser';
-      const password = 'testpass';
+      const password = 'mock-password';
       const loginAction = AuthActions.login({ username, password });
       const expectedAction = AuthActions.loginFailure({ error: undefined });
 
@@ -153,7 +153,7 @@ describe('AuthEffects', () => {
 
     it('should handle null error objects', (done) => {
       const username = 'testuser';
-      const password = 'testpass';
+      const password = 'mock-password';
       const loginAction = AuthActions.login({ username, password });
       const expectedAction = AuthActions.loginFailure({ error: null });
 
