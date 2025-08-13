@@ -172,11 +172,11 @@ describe('AuthEffects', () => {
     it('should cancel previous login request when new login action is dispatched', (done) => {
       const firstLogin = AuthActions.login({
         username: 'user1',
-        password: 'pass1',
+        password: 'mock-pass-1',
       });
       const secondLogin = AuthActions.login({
         username: 'user2',
-        password: 'pass2',
+        password: 'mock-pass-2',
       });
       const user2 = { id: '2', name: 'User 2' };
       const expectedAction = AuthActions.loginSuccess({ user: user2 });
@@ -209,9 +209,9 @@ describe('AuthEffects', () => {
 
     it('should handle rapid successive login attempts', (done) => {
       const actions = [
-        AuthActions.login({ username: 'user1', password: 'pass1' }),
-        AuthActions.login({ username: 'user2', password: 'pass2' }),
-        AuthActions.login({ username: 'user3', password: 'pass3' }),
+        AuthActions.login({ username: 'user1', password: 'mock-pass-1' }),
+        AuthActions.login({ username: 'user2', password: 'mock-pass-2' }),
+        AuthActions.login({ username: 'user3', password: 'mock-pass-3' }),
       ];
 
       authService.login.mockImplementation((username: string) => {
@@ -240,11 +240,11 @@ describe('AuthEffects', () => {
     it('should maintain observable stream on error', (done) => {
       const firstLogin = AuthActions.login({
         username: 'user1',
-        password: 'pass1',
+        password: 'mock-pass-1',
       });
       const secondLogin = AuthActions.login({
         username: 'user2',
-        password: 'pass2',
+        password: 'mock-pass-2',
       });
       const user2 = { id: '2', name: 'User 2' };
 
