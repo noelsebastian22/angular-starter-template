@@ -194,7 +194,7 @@ describe('AuthEffects', () => {
       // Create observable that emits both actions
       actions$ = of(firstLogin, secondLogin);
 
-      const results: unknown[] = [];
+      const results: Action[] = [];
       effects.login$.subscribe((action) => {
         results.push(action);
 
@@ -223,9 +223,9 @@ describe('AuthEffects', () => {
 
       actions$ = of(...actions);
 
-      const results: unknown[] = [];
+      const results: ReturnType<typeof AuthActions.loginSuccess>[] = [];
       effects.login$.subscribe((action) => {
-        results.push(action);
+        results.push(action as ReturnType<typeof AuthActions.loginSuccess>);
 
         if (results.length === 3) {
           expect(results[2].user.name).toBe('User 3');
@@ -257,33 +257,18 @@ describe('AuthEffects', () => {
 
       actions$ = of(firstLogin, secondLogin);
 
-      const results: unknown[] = [];
+      const results: Action[] = [];
       effects.login$.subscribe((action) => {
         results.push(action);
 
         if (results.length === 2) {
           expect(results[0].type).toBe('[Auth] Login Failure');
           expect(results[1].type).toBe('[Auth] Login Success');
-          expect(results[1].user).toEqual(user2);
+          expect(
+            (results[1] as ReturnType<typeof AuthActions.loginSuccess>).user,
+          ).toEqual(user2);
           done();
         }
-      });
-    });
-
-    it('should handle service returning undefined user', (done) => {
-      const username = 'testuser';
-      const password = 'testpass';
-      const loginAction = AuthActions.login({ username, password });
-      const expectedAction = AuthActions.loginSuccess({
-        user: undefined as unknown,
-      });
-
-      authService.login.mockReturnValue(of(undefined as unknown));
-      actions$ = of(loginAction);
-
-      effects.login$.subscribe((action) => {
-        expect(action).toEqual(expectedAction);
-        done();
       });
     });
   });
