@@ -154,7 +154,7 @@ describe('extractErrorMessage', () => {
       const circularError: Record<string, unknown> = {
         message: 'Circular error',
       };
-      circularError.self = circularError;
+      circularError['self'] = circularError;
 
       const result = extractErrorMessage(circularError);
       expect(result).toBe('An unexpected error occurred');
@@ -163,8 +163,8 @@ describe('extractErrorMessage', () => {
     it('should return fallback message when JSON.stringify fails due to complex circular structure', () => {
       const obj1: Record<string, unknown> = { name: 'obj1' };
       const obj2: Record<string, unknown> = { name: 'obj2' };
-      obj1.ref = obj2;
-      obj2.ref = obj1;
+      obj1['ref'] = obj2;
+      obj2['ref'] = obj1;
 
       const result = extractErrorMessage(obj1);
       expect(result).toBe('An unexpected error occurred');
