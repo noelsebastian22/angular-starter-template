@@ -31,7 +31,7 @@ describe('AuthEffects', () => {
   describe('login$', () => {
     it('should dispatch loginSuccess action on successful login', (done) => {
       const username = 'testuser';
-      const password = 'testpass';
+      const password = 'mock-password';
       const user = { id: '123', name: 'Test User' };
       const loginAction = AuthActions.login({ username, password });
       const expectedAction = AuthActions.loginSuccess({ user });
@@ -48,7 +48,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch loginFailure action on login error', (done) => {
       const username = 'testuser';
-      const password = 'wrongpass';
+      const password = 'mock-wrong-password';
       const error = new Error('Invalid credentials');
       const loginAction = AuthActions.login({ username, password });
       const expectedAction = AuthActions.loginFailure({ error });
@@ -65,7 +65,7 @@ describe('AuthEffects', () => {
 
     it('should handle HTTP error responses', (done) => {
       const username = 'testuser';
-      const password = 'testpass';
+      const password = 'mock-password';
       const httpError = {
         status: 401,
         statusText: 'Unauthorized',
@@ -86,7 +86,7 @@ describe('AuthEffects', () => {
 
     it('should handle network errors', (done) => {
       const username = 'testuser';
-      const password = 'testpass';
+      const password = 'mock-password';
       const networkError = new Error('Network connection failed');
       const loginAction = AuthActions.login({ username, password });
       const expectedAction = AuthActions.loginFailure({ error: networkError });
@@ -120,7 +120,7 @@ describe('AuthEffects', () => {
 
     it('should handle special characters in credentials', (done) => {
       const username = 'user@example.com';
-      const password = 'P@ssw0rd!';
+      const password = 'mock-special-chars-123!';
       const user = { id: '789', name: 'Special User' };
       const loginAction = AuthActions.login({ username, password });
       const expectedAction = AuthActions.loginSuccess({ user });
