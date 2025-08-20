@@ -54,7 +54,7 @@ describe('GlobalErrorHandler', () => {
     consoleErrorSpy.mockReset();
     consoleWarnSpy.mockReset();
     // Reset environment mock
-    (environment as unknown).production = false;
+    environment.production = false;
   });
 
   it('should be created', () => {
@@ -80,7 +80,7 @@ describe('GlobalErrorHandler', () => {
 
       it('should log HttpErrorResponse to console in development environment', () => {
         // Arrange
-        (environment as unknown).production = false;
+        environment.production = false;
         const httpError = new HttpErrorResponse({
           error: 'Server error',
           status: 404,
@@ -99,7 +99,7 @@ describe('GlobalErrorHandler', () => {
 
       it('should not log HttpErrorResponse to console in production environment', () => {
         // Arrange
-        (environment as unknown).production = true;
+        environment.production = true;
         const httpError = new HttpErrorResponse({
           error: 'Server error',
           status: 500,
@@ -151,7 +151,7 @@ describe('GlobalErrorHandler', () => {
 
     describe('Development environment behavior', () => {
       beforeEach(() => {
-        (environment as unknown).production = false;
+        environment.production = false;
       });
 
       it('should log non-HTTP errors to console in development', () => {
@@ -168,7 +168,7 @@ describe('GlobalErrorHandler', () => {
 
     describe('Production environment behavior', () => {
       beforeEach(() => {
-        (environment as unknown).production = true;
+        environment.production = true;
       });
 
       it('should not log non-HTTP errors to console in production', () => {
